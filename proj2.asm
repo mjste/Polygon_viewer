@@ -68,12 +68,11 @@ start1:
     jc file_opening_error
     mov word ptr ds:[file_handle], ax
 
-    ; wypisz wiadomość o sukcesie
-    mov ah, 9
-    mov dx, offset success_message_1
-    int 21h
-
-    call wait_for_click
+    ; ; wypisz wiadomość o sukcesie
+    ; mov ah, 9
+    ; mov dx, offset success_message_1
+    ; int 21h
+    ; call wait_for_click
 
 
     ; Potem powinno być ok
@@ -105,12 +104,6 @@ read_char:
     je end_read
     ; for character in file:
     ; {
-        ; mov ah, 2
-        ; mov dl, '.'
-        ; int 21h
-        ; mov word ptr ds:[y], 0
-        ; mov word ptr ds:[x], bx
-        ; call draw_point
         mov al, byte ptr ds:[si]
         mov byte ptr ds:[wrong_character], al
         mov word ptr ds:[buffer_index], bx
@@ -129,13 +122,15 @@ end_read:
     mov ah, 3eh
     int 21h
     jc file_closing_error
-    mov ax, seg success_message_2
-    mov ds, ax
-    mov dx, offset success_message_2
-    mov ah, 9
-    int 21h
 
-    call wait_for_click
+    ; ; wypisz wiadomość o sukcesie
+    ; mov ax, seg success_message_2
+    ; mov ds, ax
+    ; mov dx, offset success_message_2
+    ; mov ah, 9
+    ; int 21h
+    ; call wait_for_click
+
     call exit
     ;--------------------------------------------------------------
 
