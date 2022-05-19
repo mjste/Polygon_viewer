@@ -6,6 +6,7 @@ wait_for_click proc far
     ret
 wait_for_click endp
 
+
 wait_for_esc proc far
     push ax
 wait_for_esc_label:
@@ -16,6 +17,7 @@ wait_for_esc_label:
     pop ax
     ret
 wait_for_esc endp
+
 
 print_line proc far
     push ax
@@ -55,6 +57,7 @@ text_mode proc far
     pop ax
     ret
 text_mode endp
+
 
 copy_arg_to_data proc far
     push ax
@@ -326,7 +329,7 @@ carriage6:
 
 state7:
     cmp ds:[state], 7
-    jne state_null
+    jne error_wrong_format
     ; {
     cmp al, lf
     jne error_wrong_format
@@ -335,8 +338,6 @@ state7:
     jmp state_end
     ; }
 
-state_null:
-
 state_end:
     pop cx
     pop dx
@@ -344,7 +345,6 @@ state_end:
     pop si
     ret
 evaluate_character endp
-
 
 
 error_wrong_format proc far

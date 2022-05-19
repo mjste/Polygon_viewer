@@ -1,3 +1,4 @@
+; Funkcje
 ; draw_point (x,y)
 ; draw_line (x0, y0), (x1, y1)
 

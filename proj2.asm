@@ -33,9 +33,7 @@ file_handle dw  ?
 bytes_read  dw  ?
 wrong_character db  ?
 buffer_index    dw  0
-success_message_1   db  "Plik otworzono z powodzeniem", cr, lf, '$'
 error_message_1 db  "Pliku nie mozna otworzyc", cr, lf, '$'
-success_message_2   db  "Plik zamknieto z powodzeniem", cr, lf, '$'
 error_message_2 db "Nie udalo sie zamknac pliku", cr, lf, '$'
 error_message_3 db "Zly format pliku", cr, lf, '$'
 error_message_4 db "Bledny stan:", '$'
@@ -68,15 +66,7 @@ start1:
     jc file_opening_error
     mov word ptr ds:[file_handle], ax
 
-    ; ; wypisz wiadomość o sukcesie
-    ; mov ah, 9
-    ; mov dx, offset success_message_1
-    ; int 21h
-    ; call wait_for_click
-
-
-    ; Potem powinno być ok
-    ;--------------------------
+    ; ds = seg data1
     mov ax, seg data1
     mov ds, ax
 
@@ -123,17 +113,8 @@ end_read:
     int 21h
     jc file_closing_error
 
-    ; ; wypisz wiadomość o sukcesie
-    ; mov ax, seg success_message_2
-    ; mov ds, ax
-    ; mov dx, offset success_message_2
-    ; mov ah, 9
-    ; int 21h
-    ; call wait_for_click
-
     call exit
     ;--------------------------------------------------------------
-
 
 
 file_opening_error:
@@ -154,6 +135,7 @@ file_opening_error:
     pop dx
     call exit
 
+
 file_closing_error:
     mov ax, seg error_message_2
     mov ds, ax
@@ -163,9 +145,9 @@ file_closing_error:
     call wait_for_click
     call exit
 
+
 file_reading_error:
     call exit
-
 
 code1 ends
 
